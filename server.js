@@ -32,8 +32,21 @@ app.get("/api/1451001600000", function (req, res) {
 
 app.get("/api/:date", function (req, res) {
   const bodyDate = req.params.date;
+  if (!bodyDate) {
+    const date = new Date();
+    const unix = Date.parse(date);
+    return res.json({ unix: unix, utc: date.toUTCString() });
+  }
+
+  const date = new Date(bodyDate);
+
+  if (date.toString() == "Invalid Date") {
+    return res.json({
+      error: "Invalid Date",
+    });
+  }
+
   const dateUnix = Date.parse(bodyDate);
-  const date = new Date(dateUnix);
 
   res.json({ unix: dateUnix, utc: date.toUTCString() });
 });
