@@ -32,11 +32,11 @@ app.get("/api/1451001600000", function (req, res) {
 
 app.get("/api/:date", function (req, res) {
   const bodyDate = req.params.date;
-  if (!bodyDate) {
-    const date = new Date();
-    const unix = Date.parse(date);
-    return res.json({ unix: unix, utc: date.toUTCString() });
-  }
+  // if (!bodyDate) {
+  //   const date = new Date();
+  //   const unix = Date.parse(date);
+  //   return res.json({ unix: unix, utc: date.toUTCString() });
+  // }
 
   const date = new Date(bodyDate);
 
@@ -49,6 +49,12 @@ app.get("/api/:date", function (req, res) {
   const dateUnix = Date.parse(bodyDate);
 
   res.json({ unix: dateUnix, utc: date.toUTCString() });
+});
+
+app.get("/api/", function (req, res) {
+  const date = new Date();
+  const unix = Date.parse(date);
+  return res.json({ unix: unix, utc: date.toUTCString() });
 });
 
 // listen for requests :)
